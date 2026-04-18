@@ -4,7 +4,7 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { ShieldAlert, Activity, Lock, Terminal } from "lucide-react";
+import { ShieldAlert, Activity, Terminal } from "lucide-react";
 
 export default function SecOpsPage() {
   return (
