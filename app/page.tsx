@@ -1,65 +1,76 @@
-import Image from "next/image";
+"use client";
+import React from "react";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { BackgroundBeams } from "@/components/ui/background-beams";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { ShieldAlert, Activity, Lock, Terminal } from "lucide-react";
 
-export default function Home() {
+export default function SecOpsPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="min-h-screen bg-neutral-950 py-12 px-4 relative overflow-hidden">
+      {/* 1. Futuristic Background */}
+      <BackgroundBeams />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 mb-8">
+          SecOps Command Center
+        </h1>
+
+        <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[30rem]">
+          {/* Main Simulation View */}
+          <BentoGridItem
+            title="Neural Defense Simulation"
+            description="Real-time RL agent monitoring lateral movement."
+            header={<SimulationPlaceholder />}
+            className="md:col-span-2"
+            icon={<Activity className="h-4 w-4 text-neutral-500" />}
+          />
+
+          {/* Real-time Logs Table */}
+          <BentoGridItem
+            title="System Intelligence"
+            description="Live SIEM log analysis and agent decisions."
+            header={<LogTable />}
+            className="md:col-span-1"
+            icon={<Terminal className="h-4 w-4 text-neutral-500" />}
+          />
+        </BentoGrid>
+      </div>
     </div>
   );
 }
+
+// Sub-component: The Live Log Table (Using Shadcn Table)
+const LogTable = () => (
+  <div className="h-full w-full bg-neutral-900/50 p-4 rounded-xl overflow-y-auto">
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="text-[10px] uppercase">Event</TableHead>
+          <TableHead className="text-[10px] uppercase text-right">Status</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell className="text-xs text-neutral-300">Port 445 Scan</TableCell>
+          <TableCell className="text-right"><Badge variant="destructive">Blocked</Badge></TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="text-xs text-neutral-300">Lateral Auth</TableCell>
+          <TableCell className="text-right"><Badge className="bg-green-500">Verified</Badge></TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </div>
+);
+
+// Sub-component: Placeholder for your Network Graph
+const SimulationPlaceholder = () => (
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-950 to-neutral-800 border border-white/[0.1] items-center justify-center">
+    <div className="flex flex-col items-center">
+      <ShieldAlert className="h-12 w-12 text-red-500 mb-4 animate-pulse" />
+      <span className="text-neutral-500 font-mono text-sm tracking-widest">ENCRYPTING SIMULATION...</span>
+    </div>
+  </div>
+);
